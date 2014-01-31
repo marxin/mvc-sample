@@ -37,6 +37,9 @@ namespace FoxlinkDatabase.Site
 			var container = builder.Build ();
 			DependencyResolver.SetResolver (new AutofacDependencyResolver (container));
 
+			builder.RegisterSource(new ViewRegistrationSource());
+
+
 			AreaRegistration.RegisterAllAreas ();
 			RegisterGlobalFilters (GlobalFilters.Filters);
 			RegisterRoutes (RouteTable.Routes);
