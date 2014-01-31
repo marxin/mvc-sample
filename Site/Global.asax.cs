@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Autofac;
+using Autofac.Integration.Mvc;
 
 namespace FoxlinkDatabase.Site
 {
@@ -28,6 +30,13 @@ namespace FoxlinkDatabase.Site
 
 		protected void Application_Start ()
 		{
+			// Autofac
+			var builder = new ContainerBuilder ();
+			builder.RegisterControllers (typeof(MvcApplication).Assembly);
+
+			var container = builder.Build ();
+			DependencyResolver.SetResolver (new AutofacDependencyResolver (container));
+
 			AreaRegistration.RegisterAllAreas ();
 			RegisterGlobalFilters (GlobalFilters.Filters);
 			RegisterRoutes (RouteTable.Routes);
